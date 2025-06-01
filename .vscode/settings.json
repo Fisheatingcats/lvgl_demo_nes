@@ -1,0 +1,17 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "lvgl_demo.code-workspace": true,
+        ".eide": true,
+        ".vscode": true,
+        ".clang-format": true,
+        ".eide.usr.ctx.json": true,
+        ".gitignore": true
+    },
+    "C_Cpp.default.configurationProvider": "cl.eide"
+}
