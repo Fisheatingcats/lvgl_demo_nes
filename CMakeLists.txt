@@ -13,7 +13,7 @@ include_directories(src)
 # 添加子库编译
 add_subdirectory("lvgl")
 add_subdirectory("lv_drivers")
-
+add_subdirectory("nes")
 # 添加源文件(递归包含)
 FILE(GLOB_RECURSE src_source ./src/*.c)
 
@@ -26,10 +26,11 @@ target_link_libraries(${PROJECT_NAME} lv_drivers)
 target_link_libraries(${PROJECT_NAME} mingw32)
 target_link_libraries(${PROJECT_NAME} SDL2main)
 target_link_libraries(${PROJECT_NAME} SDL2)
-
+target_link_libraries(${PROJECT_NAME} nes)
 # 拷贝SDL2.dll 文件到 build目录
 file(COPY SDL2.dll DESTINATION ../build)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+
 include(CPack)

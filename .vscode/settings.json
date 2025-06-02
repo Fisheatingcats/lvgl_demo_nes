@@ -13,5 +13,22 @@
         ".eide.usr.ctx.json": true,
         ".gitignore": true
     },
-    "C_Cpp.default.configurationProvider": "cl.eide"
+    "C_Cpp.default.configurationProvider": "cl.eide",
+    "files.associations": {
+        "sdl.h": "c",
+        "lv_demos.h": "c",
+        "lv_demo_multilang.h": "c",
+        "nes.h": "c",
+        "lvgl.h": "c",
+        "lv_demo_nes.h": "c",
+        "supermario.h": "c",
+        "nes_conf.h": "c",
+        "lv_porting.h": "c",
+        "sdl_error.h": "c",
+        "sdl_common.h": "c",
+        "sdl_common_internal.h": "c",
+        "lv_conf.h": "c",
+        "lv_drv_conf.h": "c",
+        "xiosbase": "c"
+    }
 }

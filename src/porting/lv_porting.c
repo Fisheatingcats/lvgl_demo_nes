@@ -101,8 +101,20 @@ static int tick_thread(void *data)
     LV_UNUSED(data);
 
     while (1) {
-        SDL_Delay(5);
-        lv_tick_inc(5); /*Tell LittelvGL that 5 milliseconds were elapsed*/
+        SDL_Delay(15);
+        lv_tick_inc(15); /*Tell LittelvGL that 5 milliseconds were elapsed*/
+    }
+
+    return 0;
+}
+
+static int lvgl_thread(void *data)
+{
+    LV_UNUSED(data);
+
+    while (1) {
+        lv_timer_handler();
+        SDL_Delay(15);
     }
 
     return 0;
@@ -112,8 +124,12 @@ void lv_porting_init(void)
 {
     lv_init();
     monitor_init();
+    SDL_StartTextInput(); // 启用文本输入
+    SDL_SetTextInputRect(&(SDL_Rect){0, 0, MONITOR_HOR_RES, MONITOR_VER_RES});
+
     // SDL创建线程
     SDL_CreateThread(tick_thread, "tick", NULL);
+    SDL_CreateThread(lvgl_thread, "lvgl", NULL);
 
     // 初始化图像缓冲区, 第二个缓冲区(可选)可以传入NULL
     static lv_disp_draw_buf_t disp_buf;
@@ -136,11 +152,23 @@ void lv_porting_init(void)
     indev_drv_1.type        = LV_INDEV_TYPE_POINTER;
     indev_drv_1.read_cb     = sdl_mouse_read;
     lv_indev_t *mouse_indev = lv_indev_drv_register(&indev_drv_1);
+
+    /* 注册键盘驱动 */
+    static lv_indev_drv_t indev_drv_2;
+    lv_indev_drv_init(&indev_drv_2);
+    indev_drv_2.type         = LV_INDEV_TYPE_KEYPAD;
+    indev_drv_2.read_cb      = sdl_keyboard_read;
+    lv_indev_t *keypad_indev = lv_indev_drv_register(&indev_drv_2);
+
+    /* 注册键盘驱动后 */
+    lv_group_t *g = lv_group_create();
+    lv_group_set_default(g);
+    lv_indev_set_group(keypad_indev, g); // 绑定键盘驱动到组
 }
 
 void inline lv_porting_delay(void)
 {
-    SDL_Delay(5);
+    SDL_Delay(15);
 }
 
 #endif
